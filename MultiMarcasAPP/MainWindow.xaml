@@ -1,0 +1,111 @@
+﻿<Window x:Class="MultiMarcasAPP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiMarcasAPP"
+        xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels"
+        xmlns:components="clr-namespace:MultiMarcasAPP.Components"
+        d:DataContext="{d:DesignInstance Type=vm:LogInViewModel}"
+        WindowState="{Binding StateOfWindow}"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="LogInView" Height="430" Width="712">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.DataContext>
+        <vm:LogInViewModel/>
+    </Window.DataContext>
+
+    <Border x:Name="MainWindowBorder" BorderBrush="LightCoral" BorderThickness="0">
+        <Grid x:Name="parentContainer">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="Auto"/>
+                <RowDefinition Height ="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Background type wave-->
+            <Grid.Background>
+                <DrawingBrush Stretch="Uniform" AlignmentY="Bottom">
+                    <DrawingBrush.Drawing>
+                        <GeometryDrawing Geometry="M0 64L10 68C20 71 40 78 59 68C79 57 99 29 119 46C138 64 158 128 178 142C198 157 217 121 237 100C257 78 277 71 296 82C316 93 336 121 356 110C375 100 395 50 415 54C435 57 454 114 474 125C494 135 514 100 533 78C553 57 573 50 593 57C612 64 632 86 652 78C672 71 691 36 701 18L711 0V192H701C691 192 672 192 652 192C632 192 612 192 593 192C573 192 553 192 533 192C514 192 494 192 474 192C454 192 435 192 415 192C395 192 375 192 356 192C336 192 316 192 296 192C277 192 257 192 237 192C217 192 198 192 178 192C158 192 138 192 119 192C99 192 79 192 59 192C40 192 20 192 10 192H0V64Z" Brush="#292C2E"/>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Grid.Background>
+
+            <!--Window chrome-->
+            <Grid Height="40" Background="#292C2E">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <!--App icon-->
+                    <Image Source="{StaticResource LogOutButtonDrawingImage}" Width="18" Margin="5 2 2 2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Text="Log In" FontFamily="Roboto" FontSize="16" Margin="4 3 0 0" Foreground="#C4C4C4"/>
+                </StackPanel>
+
+                <!--Caption buttons-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{Binding MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                </StackPanel>
+            </Grid>
+
+            <!--App content-->
+            <Grid Grid.Row="1" x:Name="AppArea">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--MultiMarcas Logo-->
+
+                <StackPanel Grid.Column="1">
+                    <!--Usuario Group-->
+                    <StackPanel Orientation="Horizontal" Margin="0 76 155 51" Width="auto" HorizontalAlignment="Right">
+                        <Label Content="_USUARIO:" FontFamily="Roboto" FontSize="24" Padding="0"
+                               Target="{Binding ElementName=TxtBoxUsuario}"/>
+                        <TextBox Background="#E0E0E0"
+                                 x:Name="TxtBoxUsuario"
+                                 Width="200" Height="28"
+                                 FontSize="18" FontFamily="../Resources/Fonts/#Roboto"
+                                 Text="{Binding Usuario, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay }" 
+                                 VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <!--Contraseña Group-->
+                    <StackPanel Orientation="Horizontal" Margin="26 0 155 0" HorizontalAlignment="Right">
+                        <Label Content="_CONTRASEÑA:" FontFamily="Roboto" FontSize="24" Padding="0"
+                               Target="{Binding ElementName=TxtBoxContraseña}"/>
+                        <components:BindablePasswordBox Width="200" Height="28" 
+                                                        x:Name="TxtBoxContraseña"
+                                                        FontSize="18"
+                                                        Password="{Binding Contraseña, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <!--Button Ingresar-->
+                    <Button Style="{StaticResource StandarButton}"
+                            Width="100" 
+                            Height="28" 
+                            Margin="0 27 0 0" 
+                            HorizontalAlignment="Center" 
+                            Content="INGRESAR"
+                            FontSize="18"
+                            Command="{Binding LogInCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

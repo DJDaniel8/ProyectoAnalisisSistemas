@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="MultiMarcasAPP.Views.ContabilidadViews.TotalComprasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MultiMarcasAPP.Views.ContabilidadViews"
+             xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.ContabilidadViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:TotalComprasViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1200">
+
+
+    <Grid>
+        <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="#323537">
+
+                <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+                    <Label Content="Año: " FontFamily="Roboto" FontSize="16" Foreground="White"
+                           VerticalAlignment="Center" Margin="10 0"/>
+                    <ComboBox Width="120" Height="28" ItemsSource="{Binding Años}" FontFamily="Roboto"
+                              FontSize="16" Background="White" SelectedItem="{Binding SelectedAño}"/>
+                </StackPanel>
+            </Grid>
+
+            <DataGrid BorderBrush="#292C2E"
+                      Margin="10 10 10 5"
+                      Grid.Row="1"
+                      ColumnHeaderHeight="30"
+                      ItemsSource="{Binding Meses}"
+                      SelectedItem="{Binding SelectedTotal}"
+                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                      CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mes" Width="*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                        Binding="{Binding Fecha}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Monto Total" Width="*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                        Binding="{Binding Total, StringFormat=c, ConverterCulture=es-GT}" IsReadOnly="True"/>
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <DataGrid BorderBrush="#292C2E" ColumnHeaderHeight="30" Background="#E5E5E5" Margin="10 5 10 10"
+                  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                  CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" Grid.Row="2"
+                  ItemsSource="{Binding Ingresos}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Width="1*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Fecha, StringFormat=d, ConverterCulture=es-GT}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Proveedor" Width="2*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Proveedor.RazonSocial}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Total Compra" Width="2*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding TotalIngreso, StringFormat=c, ConverterCulture=es-GT}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
+
+
+        </Grid>
+    </Grid>
+</UserControl>

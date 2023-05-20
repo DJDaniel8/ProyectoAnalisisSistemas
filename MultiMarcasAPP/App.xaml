@@ -1,0 +1,25 @@
+﻿<Application x:Class="MultiMarcasAPP.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MultiMarcasAPP"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/ImagesSVG.xaml"/>
+                <ResourceDictionary Source="Resources/DownRow.xaml"/>
+                <ResourceDictionary Source="Themes/PasswordBoxStyle.xaml"/>
+                <ResourceDictionary Source="Themes/TitleBarButtonsStyle.xaml"/>
+                <ResourceDictionary Source="Themes/StandarButtonStyle.xaml"/>
+                <ResourceDictionary Source="Themes/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="Themes/StandarGridStyle.xaml"/>
+                <ResourceDictionary Source="Themes/StandarComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="Themes/SearchByComboBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+
+
+</Application>

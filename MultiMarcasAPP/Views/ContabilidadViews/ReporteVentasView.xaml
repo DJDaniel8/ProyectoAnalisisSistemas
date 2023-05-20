@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="MultiMarcasAPP.Views.ContabilidadViews.ReporteVentasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MultiMarcasAPP.Views.ContabilidadViews"
+             xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.ContabilidadViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:ReporteVentasViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1200">
+
+    <Grid>
+        <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="#323537">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+                    <Label Content="Año: " FontFamily="Roboto" FontSize="16" Foreground="White"
+                           VerticalAlignment="Center" Margin="10 0"/>
+                    <ComboBox Width="120" Height="28" ItemsSource="{Binding Años}" FontFamily="Roboto"
+                              FontSize="16" Background="White" SelectedItem="{Binding SelectedAño}"/>
+                    <Label Content="Mes: " FontFamily="Roboto" FontSize="16" Foreground="White"
+                           VerticalAlignment="Center" Margin="10 0"/>
+                    <ComboBox Width="120" Height="28" ItemsSource="{Binding Meses}" FontFamily="Roboto"
+                              FontSize="16" Background="White" SelectedItem="{Binding SelectedMes}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Generar PDF" FontFamily="Roboto" FontSize="16"
+                            Style="{StaticResource NavigationBarButton2}" Height="40"
+                            Cursor="Hand" Padding="12 0"
+                            Command="{Binding GenerarPDFCommand}"/>
+                    <Button Content="Guardar Saldo Final" FontFamily="Roboto" FontSize="16"
+                            Style="{StaticResource NavigationBarButton2}" Height="40"
+                            Cursor="Hand" Padding="12 0"
+                            Command="{Binding GuardarSaldoFinalCommand}"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Vienen:" FontSize="16" FontFamily="Roboto"
+                            VerticalAlignment="Center" Margin="15"/>
+                <TextBox Width="150" FontFamily="Roboto" FontSize="16" Height="28" IsReadOnly="True"
+                         Text="{Binding Vienen, StringFormat=c,ConverterCulture=es-GT}"/>
+                <TextBlock Text="Saldo Final:" FontSize="16" FontFamily="Roboto"
+                            VerticalAlignment="Center" Margin="15"/>
+                <TextBox Width="150" FontFamily="Roboto" FontSize="16" Height="28" IsReadOnly="True"
+                         Text="{Binding SaldoFinal, StringFormat=c,ConverterCulture=es-GT}"/>
+                <TextBlock Text="Ventas:" FontSize="16" FontFamily="Roboto" VerticalAlignment="Center" Margin="30 0 5 0"/>
+                <Rectangle Width="15" Height="15" Fill="#8DF281"/>
+                <TextBlock Text="Gastos:" FontSize="16" FontFamily="Roboto" VerticalAlignment="Center" Margin="30 0 5 0"/>
+                <Rectangle Width="15" Height="15" Fill="#E3F372"/>
+                <TextBlock Text="Depositos:" FontSize="16" FontFamily="Roboto" VerticalAlignment="Center" Margin="30 0 5 0"/>
+                <Rectangle Width="15" Height="15" Fill="#65EDE3"/>
+                <TextBlock Text="Pagos Proveedores:" FontSize="16" FontFamily="Roboto" VerticalAlignment="Center" Margin="30 0 5 0"/>
+                <Rectangle Width="15" Height="15" Fill="#FD6747"/>
+            </StackPanel>
+
+            <DataGrid BorderBrush="#292C2E" ColumnHeaderHeight="30" Background="#E5E5E5" Margin="10 5 10 10"
+                  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                  CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" Grid.Row="2"
+                  ItemsSource="{Binding Reportes}" >
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding TipoClase}" Value="1">
+                                <Setter Property="Background" Value="#8DF281" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TipoClase}" Value="2">
+                                <Setter Property="Background" Value="#E3F372" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TipoClase}" Value="3">
+                                <Setter Property="Background" Value="#65EDE3" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TipoClase}" Value="4">
+                                <Setter Property="Background" Value="#FD6747" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Width="*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Fecha, StringFormat=d, ConverterCulture=es-GT}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Monto" Width="*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Monto, StringFormat=c, ConverterCulture=es-GT}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Saldo" Width="*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Saldo, StringFormat=c , ConverterCulture=es-GT}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Descripcion/Observacion" Width="3*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Descripcion}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,82 @@
+﻿<Window x:Class="MultiMarcasAPP.Views.ContabilidadViews.ContabilidadView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiMarcasAPP.Views.ContabilidadViews"
+        xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.ContabilidadViewModels"
+        xmlns:compraview="clr-namespace:MultiMarcasAPP.Views.ContabilidadViews"
+        d:DataContext="{d:DesignInstance Type=vm:ContabilidadViewModel}"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        WindowState="{Binding StateOfWindow}"
+        Title="ContabilidadView" Height="700" Width="1245">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.DataContext>
+        <vm:ContabilidadViewModel/>
+    </Window.DataContext>
+
+    <Border x:Name="MainWindowBorder" BorderBrush="Black" BorderThickness="1" >
+        <Grid x:Name="parentContainer" Background="#323537">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="Auto"/>
+                <RowDefinition Height ="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Window chrome-->
+            <Grid Height="40" Background="#292C2E">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <!--App icon-->
+                    <Image Source="{StaticResource VentaWindowDrawingImage}" Width="28" Margin="10 2 2 2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Text="Contabilidad" FontFamily="../Resources/Fonts/#Roboto" FontSize="16" Margin="10 3 0 0" Foreground="#C4C4C4" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!--Caption buttons-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{Binding MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource MaximizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" Visibility="{Binding MaximizeVisibility}"
+                            Command="{Binding MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource RestoreButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore" Visibility="{Binding RestoreVisibility}"
+                            Command="{Binding RestoreCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                </StackPanel>
+            </Grid>
+
+            <!--App content-->
+            <TabControl Grid.Row="1"  >
+                <TabItem Header="Totales Compras" FontFamily="Roboto" FontSize="16">
+                    <!--#region Ventas-->
+                    <compraview:TotalComprasView DataContext="{Binding TotalComprasViewModel}"/>
+                    <!--#endregion-->
+                </TabItem>
+                <TabItem Header="Totales Depositos" FontFamily="Roboto" FontSize="16">
+                    <!--#region Ventas-->
+                    <compraview:TotalDepositosView DataContext="{Binding totalDespositosViewModel}"/>
+                    <!--#endregion-->
+                </TabItem>
+                <TabItem Header="Totales Gastos" FontFamily="Roboto" FontSize="16">
+                    <!--#region Ingreso Gastos-->
+                    <compraview:TotalGastosView DataContext="{Binding TotalGastosViewModel}"/>
+                    <!--#endregion-->
+                </TabItem>
+                <TabItem Header="Reporte Ventas" FontFamily="Roboto" FontSize="16">
+                    <compraview:ReporteVentasView DataContext="{Binding ReporteVentasViewModel}"/>
+                </TabItem>
+                <TabItem Header="Reporte Inventario" FontFamily="Roboto" FontSize="16">
+                    <compraview:ReporteInventarioView DataContext="{Binding ReporteInventarioViewModel}"/>
+                </TabItem>
+                <TabItem Header="Pagos Proveedores" FontFamily="Roboto" FontSize="16">
+                    <compraview:PagosProveedoresView DataContext="{Binding PagosProveedoresViewModel}"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Border>
+</Window>

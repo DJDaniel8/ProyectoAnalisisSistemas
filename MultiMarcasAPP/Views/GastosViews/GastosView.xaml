@@ -1,0 +1,76 @@
+﻿<Window x:Class="MultiMarcasAPP.Views.GastosViews.GastosView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiMarcasAPP.Views.GastosViews"
+        xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.GastosViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:GastosViewModel}"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        WindowState="{Binding StateOfWindow}"
+        Title="Gastos" Height="700" Width="1245">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.DataContext>
+        <vm:GastosViewModel/>
+    </Window.DataContext>
+
+    <Border x:Name="MainWindowBorder" BorderBrush="Black" BorderThickness="1" >
+        <Grid x:Name="parentContainer" Background="#323537">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="Auto"/>
+                <RowDefinition Height ="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Window chrome-->
+            <Grid Height="40" Background="#292C2E">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <!--App icon-->
+                    <Image Source="{StaticResource VentaWindowDrawingImage}" Width="28" Margin="10 2 2 2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Text="Gastos" FontFamily="../Resources/Fonts/#Roboto" FontSize="16" Margin="10 3 0 0" Foreground="#C4C4C4" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!--Caption buttons-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{Binding MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource MaximizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" Visibility="{Binding MaximizeVisibility}"
+                            Command="{Binding MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource RestoreButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore" Visibility="{Binding RestoreVisibility}"
+                            Command="{Binding RestoreCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                </StackPanel>
+            </Grid>
+
+            <!--App content-->
+            <TabControl Grid.Row="1"  >
+                <TabItem Header="Ver" FontFamily="Roboto" FontSize="16">
+                    <!--#region Ver-->
+                    <local:GastosVerView DataContext="{Binding GastosVerViewModel}"/>
+                    <!--#endregion-->
+                </TabItem>
+
+                <TabItem Header="Insertar Gastos" FontFamily="Roboto" FontSize="16">
+                    <!--#region Ver-->
+                    <local:GastosInsertarView DataContext="{Binding GastosInsertarViewModel}"/>
+                    <!--#endregion-->
+                </TabItem>
+                
+                <TabItem Header="Tipos Gastos" FontFamily="Roboto" FontSize="16">
+                    <!--#region Ver-->
+                    <local:GastosNuevoTipoView DataContext="{Binding GastosNuevoTipoViewModel}"/>
+                    <!--#endregion-->
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+    </Border>
+</Window>

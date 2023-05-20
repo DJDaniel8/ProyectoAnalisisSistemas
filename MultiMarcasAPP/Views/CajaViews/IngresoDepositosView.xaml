@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="MultiMarcasAPP.Views.CajaViews.IngresoDepositosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MultiMarcasAPP.Views.CajaViews"
+             d:DataContext="{d:DesignInstance Type=vm:DepositosVerViewModel}"
+             xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.DepositosInternosViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1200">
+    <Grid>
+        <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="#323537">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+                    <Label Content="Año: " FontFamily="Roboto" FontSize="16" Foreground="White"
+                           VerticalAlignment="Center" Margin="10 0"/>
+                    <ComboBox Width="120" Height="28" ItemsSource="{Binding Años}" FontFamily="Roboto"
+                              FontSize="16" Background="White" SelectedItem="{Binding SelectedAño}"/>
+                    <Label Content="Mes: " FontFamily="Roboto" FontSize="16" Foreground="White"
+                           VerticalAlignment="Center" Margin="10 0"/>
+                    <ComboBox Width="120" Height="28" ItemsSource="{Binding Meses}" FontFamily="Roboto"
+                              FontSize="16" Background="White" SelectedItem="{Binding SelectedMes}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                    <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="Guardar" Command="{Binding GuardarCommand}"
+                                Padding="12 0" Cursor="Hand" Visibility="{Binding SecundaryButtonNavigationBarVisiblity, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="Cancelar" Command="{Binding CancelarCommand}"
+                                Padding="12 0" Cursor="Hand" Visibility="{Binding SecundaryButtonNavigationBarVisiblity, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="Crear" Command="{Binding CrearCommand}"
+                                Padding="12 0" Cursor="Hand" Visibility="{Binding MainButtonNavigationBarVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="Eliminar" Command="{Binding EliminarCommand}"
+                                Padding="12 0" Cursor="Hand" Visibility="{Binding MainButtonNavigationBarVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+
+                <Label Content="Fecha:" FontFamily="Roboto" FontSize="16" Grid.Row="0" Grid.Column="0"/>
+                <DatePicker Grid.Row="0" Grid.Column="1" MaxWidth="200" HorizontalAlignment="Left" VerticalAlignment="Center"
+                            IsEnabled="{Binding IsEneable}" SelectedDate="{Binding SelectedDeposito.Fecha, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Content="# Boleta:" FontFamily="Roboto" FontSize="16" Grid.Row="1" Grid.Column="0"/>
+                <TextBox FontFamily="Roboto" FontSize="16" MaxWidth="300" Grid.Row="1" Grid.Column="1" Height="28" Margin="3"
+                         HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" IsReadOnly="{Binding IsReadOnly}"
+                         Text="{Binding SelectedDeposito.NoDoc, UpdateSourceTrigger=PropertyChanged}" Background="#E0E0E0"/>
+
+                <Label Content="Monto:" FontFamily="Roboto" FontSize="16" Grid.Row="2" Grid.Column="0"/>
+                <TextBox FontFamily="Roboto" FontSize="16" MaxWidth="300" Grid.Row="2" Grid.Column="1"
+                         Height="28" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#E0E0E0"
+                         Width="300" IsReadOnly="{Binding IsReadOnly}" Text="{Binding SelectedDeposito.Monto, StringFormat=c, ConverterCulture=es-GT}"/>
+            </Grid>
+
+
+            <DataGrid BorderBrush="#292C2E"
+                      Margin="10 5 10 10"
+                      Grid.Row="2"
+                      ColumnHeaderHeight="30"
+                      ItemsSource="{Binding Depositos}"
+                      SelectedItem="{Binding SelectedDeposito}"
+                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                      CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Width="125*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                        Binding="{Binding Fecha, StringFormat=d, ConverterCulture=es-GT}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="#Boleta" Width="140*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                        Binding="{Binding NoDoc}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Monto" Width="140*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                        Binding="{Binding Monto, StringFormat=c, ConverterCulture=es-GT}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

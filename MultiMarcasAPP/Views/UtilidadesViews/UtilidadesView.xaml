@@ -1,0 +1,99 @@
+﻿<Window x:Class="MultiMarcasAPP.Views.UtilidadesViews.UtilidadesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiMarcasAPP.Views.UtilidadesViews"
+        xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.UtilidadesViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:UtilidadesViewModel}"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        WindowState="{Binding StateOfWindow}"
+        Title="ProductosView" Height="700" Width="1245">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.DataContext>
+        <vm:UtilidadesViewModel/>
+    </Window.DataContext>
+
+    <Border x:Name="MainWindowBorder" BorderBrush="Black" BorderThickness="1" >
+        <Grid x:Name="parentContainer">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="Auto"/>
+                <RowDefinition Height ="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Window chrome-->
+            <Grid Height="40" Background="#292C2E">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <!--App icon-->
+                    <Image Source="{StaticResource UtilidadesWindowDrawingImage}" Width="23" Margin="10 2 2 2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Text="Utilidades" FontFamily="../Resources/Fonts/#Roboto" FontSize="16" Margin="10 3 0 0" Foreground="#C4C4C4" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!--Caption buttons-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{Binding MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource MaximizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" Visibility="{Binding MaximizeVisibility}"
+                            Command="{Binding MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource RestoreButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore" Visibility="{Binding RestoreVisibility}"
+                            Command="{Binding RestoreCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                </StackPanel>
+            </Grid>
+
+            <!--App content-->
+            <Grid Grid.Row="1" x:Name="AppArea">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"
+                      Background="#323537">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="175" Height="28" Margin="10 0 0 0" Text="{Binding BuscarPorText, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding TxtBoxVisibility}"/>
+                        <ComboBox Style="{StaticResource ComboFiltrarPor}" Margin="30 0 0 0" Background="#E0E0E0"
+                                  ItemsSource="{Binding CurrentList}" SelectedItem="{Binding SelectedFiltrarPor}"
+                                  Visibility="{Binding ComboBoxFiltrar}"/>
+
+                        <DatePicker VerticalAlignment="Center" Margin="10 0 0 0" FontSize="16" FontFamily="#Roboto" Background="#E0E0E0" Visibility="{Binding DatePickerVisibility1}"
+                                    SelectedDate="{Binding SelectedDate,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DatePicker VerticalAlignment="Center" Margin="10 0 0 0" FontSize="16" FontFamily="#Roboto" Background="#E0E0E0" Visibility="{Binding DatePickerVisibility2}"
+                                    SelectedDate="{Binding SelectedDate2,UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="_Ventas" Command="{Binding VentasCommand}"
+                                Padding="12 0" Cursor="Hand"/>
+                        <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="_Productos" Command="{Binding ProductosCommand}"
+                                Padding="12 0" Cursor="Hand" />
+                        <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="_Fecha" Command="{Binding FechaCommand}"
+                                Padding="12 0" Cursor="Hand" />
+                    </StackPanel>
+                </Grid>
+
+                <local:UtilidadesPorVentaView Margin="10"
+                                              Grid.Row="1"
+                                              DataContext="{Binding VentaViewModel}"/>
+                <local:UtilidadesPorProductosView Margin="10"
+                                                  Grid.Row="1"
+                                                  DataContext="{Binding ProductosViewModel}"/>
+                <local:UtilidadesPorFechaView Margin="10"
+                                              Grid.Row="1"
+                                              DataContext="{Binding FechaViewModel}"/>
+
+
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="MultiMarcasAPP.Views.StocksViews.InformacionStockView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.StocksViewModels"
+             xmlns:local="clr-namespace:MultiMarcasAPP.Views.StocksViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1200">
+    <UserControl.DataContext>
+        <vm:InformacionStockViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Codigo:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Nombre:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Proveedor:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="Stock:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="4" Content="Precio Venta:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Precio Minimo:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right" Visibility="{Binding PriceVisibility}"/>
+            <Label Grid.Column="0" Grid.Row="6" Content="Precio Compra:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right" Visibility="{Binding PriceVisibility}"/>
+            <Label Grid.Column="0" Grid.Row="7" Content="Auditorado:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+
+            <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10"
+                     Background="#E0E0E0" Text="{Binding StockViewModel.Producto.Codigo}" IsReadOnly="True"/>
+            <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" 
+                      Background="#E0E0E0" Text="{Binding StockViewModel.Producto.Nombre}" IsReadOnly="True"/>
+            <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10"
+                      Background="#E0E0E0" Text="{Binding StockViewModel.Producto.Proveedores}" IsReadOnly="True"/>
+            <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10"
+                      Background="#E0E0E0" Text="{Binding StockViewModel.Stock.Cantidad, StringFormat=f0}" IsReadOnly="True"/>
+            <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" IsReadOnly="{Binding TxtBoxReadOnly}"
+                      Background="#E0E0E0" Text="{Binding StockViewModel.PrecioVenta, StringFormat=c, ConverterCulture=es-GT}"/>
+            <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10"
+                      Background="#E0E0E0" Text="{Binding StockViewModel.PrecioMinimo, StringFormat=c, ConverterCulture=es-GT}"
+                     Visibility="{Binding PriceVisibility}" IsReadOnly="{Binding TxtBoxReadOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10"
+                      Background="#E0E0E0" Text="{Binding StockViewModel.Stock.PrecioCompra, StringFormat=c, ConverterCulture=es-GT}"
+                     Visibility="{Binding PriceVisibility}" IsReadOnly="True"/>
+            <TextBox Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 0" IsReadOnly="True"
+                      Background="#E0E0E0" Text="{Binding StockViewModel.Stock.Auditorado,ConverterCulture=es-GT}"/>
+        </Grid>
+
+        <StackPanel Grid.Column="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Bottom"
+                    Visibility="{Binding CantidadVisibility}"
+                    d:Visibility="Visible">
+            <Label Content="_Cantidad:" FontFamily="#Roboto" FontSize="18" Target="{Binding ElementName=TxtBoxCantidad}"/>
+            <TextBox Width="100" Height="28" Text="{Binding Cantidad, UpdateSourceTrigger=PropertyChanged}" 
+                     Background="#E0E0E0" Name="TxtBoxCantidad" GotFocus="TxtBoxCantidad_GotFocus"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

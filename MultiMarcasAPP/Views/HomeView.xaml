@@ -1,0 +1,199 @@
+﻿<Window x:Class="MultiMarcasAPP.Views.HomeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiMarcasAPP.Views"
+        xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:HomeViewModel}"
+        WindowState="{Binding StateOfWindow}"
+        xmlns:models="clr-namespace:MultiMarcasAPP.Models"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="HomeView" Height="700" Width="1245" MinWidth="200" MinHeight="200">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="34"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.DataContext>
+        <vm:HomeViewModel/>
+    </Window.DataContext>
+
+    <Border x:Name="MainWindowBorder" BorderBrush="Black" BorderThickness="1" >
+        <Grid x:Name="parentContainer">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="Auto"/>
+                <RowDefinition Height ="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Window chrome-->
+            <Grid Height="40" Background="#292C2E">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <!--App icon-->
+                    <Image Source="{StaticResource HomeWindowDrawingImage}" Width="23" Margin="10 2 2 2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Text="Inicio" FontFamily="../Resources/Fonts/#Roboto" FontSize="16" Margin="10 3 0 0" Foreground="#C4C4C4" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!--Caption buttons-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    
+                    <Button Width="40" ToolTip="Log Out"
+                            WindowChrome.IsHitTestVisibleInChrome="True"
+                            Command="{Binding LogOutCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Image Source="{StaticResource LogOutButtonDrawingImage}" Width="23"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#C4C4C4"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Width="40" ToolTip="Log Out"
+                            WindowChrome.IsHitTestVisibleInChrome="True"
+                            Command="{Binding ConfiguracionesCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Image Source="{StaticResource settingIcon}" Width="28"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#C4C4C4"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{Binding MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource MaximizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" Visibility="{Binding MaximizeVisibility}"
+                            Command="{Binding MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource RestoreButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore" Visibility="{Binding RestoreVisibility}"
+                            Command="{Binding RestoreCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                </StackPanel>
+            </Grid>
+
+            <!--App content-->
+            <Grid Grid.Row="1" x:Name="AppArea">
+
+                <!--Botones Para Las ventanas-->
+                <Border>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto"
+                                  Padding="20">
+                        <WrapPanel Grid.Column="1" HorizontalAlignment="Center">
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding VentaCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Ventas}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource VentaButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">_VENTA</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding CotizacionCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Cotizaciones}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource CotizacionButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">_COTIZACION</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding ProductosCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Productos}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource ProductosButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">_PRODUCTOS</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding StocksCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Stocks}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource StocksButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">_STOCKS</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding FacturasCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Facturas}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource FacturasButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">_FACTURAS</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding PersonalCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Personal}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource PersonalButtonDrawingImage}" Width="60"/>
+                                    <AccessText  FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">P_ERSONAL</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding UtilidadesCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Utilidades}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource UtilidadesButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">_UTILIDADES</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20"  Command="{Binding ClientesCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Clientes}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource ClientesButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">C_LIENTES</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding CategoriaCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Categorias}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource CategoriasButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">C_ATEGORIAS</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding ProveedoresCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Proveedores}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource ProveedoresButtonDrawingImage}" Width="70"/>
+                                    <AccessText FontSize="20" FontFamily="Roboto" Margin="0 27 0 0">P_ROVEEDORES</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding IngresosCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Ingresos}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource IngresosButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">_INGRESOS</AccessText>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="150" Height="150" Margin="20" Command="{Binding CajaCommand}"
+                                    Visibility="{Binding Source={x:Static models:PrivilegiosToVisibility.Caja}}">
+                                <StackPanel>
+                                    <Image Source="{StaticResource VentaButtonDrawingImage}" Width="60"/>
+                                    <AccessText FontSize="22" FontFamily="Roboto" Margin="0 27 0 0">CA_JA</AccessText>
+                                </StackPanel>
+                            </Button>
+
+
+
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

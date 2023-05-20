@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiMarcasAPP", "MultiMarcasAPP.csproj", "{FED5410E-79FF-4FC6-8A6F-503A24DA721B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FED5410E-79FF-4FC6-8A6F-503A24DA721B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FED5410E-79FF-4FC6-8A6F-503A24DA721B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FED5410E-79FF-4FC6-8A6F-503A24DA721B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FED5410E-79FF-4FC6-8A6F-503A24DA721B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB4061B5-223D-4756-B74B-20D8FFBE9F84}
+	EndGlobalSection
+EndGlobal

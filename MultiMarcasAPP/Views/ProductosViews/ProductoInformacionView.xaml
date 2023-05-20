@@ -1,0 +1,225 @@
+﻿<UserControl x:Class="MultiMarcasAPP.Views.ProductosViews.ProductoInformacionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.ProductosViewModels"
+             xmlns:local="clr-namespace:MultiMarcasAPP.Views.ProductosViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1200">
+    <UserControl.DataContext>
+        <vm:ProductoInformacionViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Codigo:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Nombre:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Categoria:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="Proveedor:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="4" Content="Padre:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Descripcion:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+
+            <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" IsReadOnly="{Binding TxtBoxReadOnly}"
+                     Background="#E0E0E0" Text="{Binding Producto.Codigo, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" IsReadOnly="{Binding TxtBoxReadOnly}"
+                      Background="#E0E0E0" Text="{Binding Producto.Nombre, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" IsReadOnly="{Binding TxtBoxReadOnly}"
+                      Background="#E0E0E0" Text="{Binding Producto.Categoria, UpdateSourceTrigger=PropertyChanged}"
+                     Visibility="{Binding TxtBoxVisibility}"/>
+            <Grid Grid.Column="1" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="0 0 10 10" Background="#E0E0E0"
+                      ItemsSource="{Binding Categorias}" DisplayMemberPath="Nombre" Visibility="{Binding ComboBoxVisibility}"
+                      SelectedItem="{Binding SelectedCategoria}"/>
+                <Button Grid.Column="1" Width="28" Height="28" Content="+" Style="{StaticResource StandarButton}"
+                        VerticalAlignment="Top" FontSize="20" Margin="5 0 5 0" Visibility="{Binding AddRemoveCategoryButtonsVisibility}"
+                        Command="{Binding AgregarCategoriaCommand}"/>
+                <Button Grid.Column="2" Width="28" Height="28" Content="-" Style="{StaticResource StandarButton}"
+                        VerticalAlignment="Top" FontSize="24" Visibility="{Binding AddRemoveCategoryButtonsVisibility}" Margin="0 0 10 0"
+                        Command="{Binding QuitarCategoriaCommand}"/>
+                <Button Grid.Column="3" Width="28" Height="28" Content="+" Style="{StaticResource StandarButton}"
+                        VerticalAlignment="Top" FontSize="20" Margin="5 0 10 0" Visibility="{Binding ConfirmSaveCategory}" 
+                        Command="{Binding ConfirmarAgregarCategoriaCommand}"/>
+                
+            </Grid>
+            <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" IsReadOnly="{Binding TxtBoxReadOnly}"
+                      Background="#E0E0E0" Text="{Binding Producto.Proveedor, UpdateSourceTrigger=PropertyChanged}"
+                     Visibility="{Binding TxtBoxVisibility}"/>
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" Height="28" VerticalAlignment="Top" Margin="0 0 10 10" Background="#E0E0E0"
+                      ItemsSource="{Binding Proveedores}" DisplayMemberPath="RazonSocial" Visibility="{Binding ComboBoxVisibility}"
+                      SelectedItem="{Binding SelectedProveedor}"/>
+                <Button Grid.Column="1" Width="28" Height="28" Content="+" Style="{StaticResource StandarButton}"
+                        VerticalAlignment="Top" FontSize="20" Margin="5 0 5 0" Visibility="{Binding AddRemoveProviderButtonsVisibility}"
+                        Command="{Binding AgregarProveedorCommand}"/>
+                <Button Grid.Column="2" Width="28" Height="28" Content="-" Style="{StaticResource StandarButton}"
+                        VerticalAlignment="Top" FontSize="24" Visibility="{Binding AddRemoveProviderButtonsVisibility}" Margin="0 0 10 0"
+                        Command="{Binding QuitarProveedorCommand}"/>
+                <Button Grid.Column="3" Width="28" Height="28" Content="+" Style="{StaticResource StandarButton}"
+                        VerticalAlignment="Top" FontSize="20" Margin="5 0 10 0" Visibility="{Binding ConfirmSaveProvider}" 
+                        Command="{Binding ConfirmarAgregarProveedorCommand}"/>
+            </Grid>
+            <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" IsReadOnly="True"
+                      Background="#E0E0E0" Text="{Binding Producto.Padre, UpdateSourceTrigger=PropertyChanged}"/>
+            <DockPanel Grid.Column="1" Grid.Row="5" >
+                <TextBox Margin="0 0 10 10"  TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="5 5" IsReadOnly="{Binding TxtBoxReadOnly}"
+                      Background="#E0E0E0" Text="{Binding Producto.Descripcion, UpdateSourceTrigger=PropertyChanged}"/>
+                
+            </DockPanel>
+        </Grid>
+
+        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Image Source="{Binding Imagen}" Stretch="Uniform"/>
+                
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Height="30" Width="30" VerticalAlignment="Bottom" Margin="5" Visibility="{Binding ComboBoxVisibility}"
+                                Command="{Binding CargarImagenCommand}">
+                            <Button.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border CornerRadius="15" Background="{TemplateBinding Background}" Padding="1">
+                                                    <Image Source="{StaticResource UploadImageButtonDrawingImage}"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#939090"/>
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Background" Value="#ECECEC"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <Button Height="30" Width="30" VerticalAlignment="Bottom" Margin="5" Visibility="{Binding ComboBoxVisibility}"
+                                Command="{Binding QuitarImagenCommand}">
+                            <Button.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border CornerRadius="15" Background="{TemplateBinding Background}" Padding="3">
+                                                    <Image Source="{StaticResource DeleteImageButtonDrawingImage}"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#939090"/>
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Background" Value="#ECECEC"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="2" Visibility="{Binding EsDerivadoControlsVisibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Es Derivado:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Multiplicador:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Padre:" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Right"/>
+
+
+            <CheckBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsChecked="{Binding EsDerivado}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" IsReadOnly="{Binding Producto.Producto.Multiplicador}"
+                      Background="#E0E0E0" Text="{Binding Producto.Multiplicador, UpdateSourceTrigger=PropertyChanged,StringFormat=d}" 
+                     Visibility="{Binding EsDerivado, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Grid Grid.Column="1" Grid.Row="2" Visibility="{Binding EsDerivado, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Height="30" Width="30" VerticalAlignment="Top" Margin="0 0 5 0">
+                    <Button.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border CornerRadius="15" Background="{TemplateBinding Background}" Padding="1">
+                                            <Image Source="{StaticResource UploadImageButtonDrawingImage}"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#939090"/>
+                                </Trigger>
+
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="#ECECEC"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <TextBox Grid.Column="1" HorizontalAlignment="Stretch" Height="28" Margin="0 0 10 10" IsReadOnly="{Binding TxtBoxReadOnly}"
+                      Background="#E0E0E0" Text="{Binding CodigoPadre, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

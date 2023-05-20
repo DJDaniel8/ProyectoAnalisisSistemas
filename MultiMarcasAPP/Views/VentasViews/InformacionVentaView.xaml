@@ -1,0 +1,99 @@
+﻿<Window x:Class="MultiMarcasAPP.Views.VentasViews.InformacionVentaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiMarcasAPP.Views.VentasViews"
+        xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.VentaViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:InformacionVentaViewModel}"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowState="{Binding StateOfWindow}"
+        Title="ProductosView" Height="700" Width="1245">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.DataContext>
+        <vm:InformacionVentaViewModel/>
+    </Window.DataContext>
+
+    <Border x:Name="MainWindowBorder" BorderBrush="Black" BorderThickness="1" >
+        <Grid x:Name="parentContainer">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="Auto"/>
+                <RowDefinition Height ="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Window chrome-->
+            <Grid Height="40" Background="#292C2E">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <!--App icon-->
+                    <Image Source="{StaticResource VentaWindowDrawingImage}" Width="23" Margin="10 2 2 2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Text="Datos Cliente" FontFamily="../Resources/Fonts/#Roboto" FontSize="16" Margin="10 3 0 0" Foreground="#C4C4C4" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!--Caption buttons-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{Binding MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource MaximizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" Visibility="{Binding MaximizeVisibility}"
+                            Command="{Binding MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource RestoreButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore" Visibility="{Binding RestoreVisibility}"
+                            Command="{Binding RestoreCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    <Button Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                </StackPanel>
+            </Grid>
+
+            <!--App content-->
+            <Grid Grid.Row="1" x:Name="AppArea">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"
+                      Background="#323537">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="_Nombre:" FontFamily="#Roboto" FontSize="16" Foreground="White" VerticalAlignment="Center"
+                               Margin="10 0 0 0" Target="{Binding ElementName=TxtBoxNombre}"/>
+                        <TextBox Width="200" Height="28" Background="#E0E0E0" 
+                                 Text="{Binding Nombre, UpdateSourceTrigger=PropertyChanged}"
+                                 Name="TxtBoxNombre"/>
+                        <Label Content="N_it:" FontFamily="#Roboto" FontSize="16" Foreground="White" VerticalAlignment="Center"
+                               Margin="10 0 0 0" Target="{Binding ElementName=TxtBoxNit}"/>
+                        <TextBox Width="150" Height="28" Background="#E0E0E0" 
+                                 Text="{Binding Nit, UpdateSourceTrigger=PropertyChanged}"
+                                 Name="TxtBoxNit"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="_C/F" Command="{Binding CFCommand}"
+                                Padding="12 0" Cursor="Hand" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                        <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="_Aceptar" Command="{Binding AceptarCommand}"
+                                Padding="12 0" Cursor="Hand" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                    </StackPanel>
+                </Grid>
+
+                <DataGrid BorderBrush="#292C2E" Grid.Row="1" ColumnHeaderHeight="30" Background="#E5E5E5" Margin="10 5 10 10"
+                          AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                          CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False"
+                          ItemsSource="{Binding Clientes}" SelectedItem="{Binding SelectedCliente}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre" Width="*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Nombre}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Apellido" Width="*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Apellido}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="NIT" Width="*" HeaderStyle="{StaticResource GridHeaderStyle}"
+                                                    Binding="{Binding Nit}" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

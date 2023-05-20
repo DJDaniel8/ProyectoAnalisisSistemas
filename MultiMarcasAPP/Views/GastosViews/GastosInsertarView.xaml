@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="MultiMarcasAPP.Views.GastosViews.GastosInsertarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MultiMarcasAPP.Views.GastosViews"
+             xmlns:vm="clr-namespace:MultiMarcasAPP.ViewModels.GastosViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:GastosInsertarViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1200">
+    <Grid>
+        <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="#323537">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+                    <!--Controles adicionales del barmenu-->
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                    <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="_Cancelar" Command="{Binding CancelarCommand}"
+                                Padding="12 0" Cursor="Hand" />
+                    <Button Style="{StaticResource NavigationBarButton2}" Height="40" Content="_Guardar" Command="{Binding GuardarCommand}"
+                                Padding="12 0" Cursor="Hand" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Fecha:" FontFamily="Roboto" FontSize="16" Margin="5"/>
+                <DatePicker Width="200" FontFamily="Roboto" FontSize="16" Grid.Column="1" 
+                            HorizontalAlignment="Left" VerticalAlignment="Center" SelectedDate="{Binding Fecha}"/>
+
+                <Label Content="Monto:" FontFamily="Roboto" FontSize="16" Grid.Row="1" Margin="5"/>
+                <TextBox Width="200" FontFamily="Roboto" FontSize="16" Grid.Column="1" Grid.Row="1" Height="28"
+                         HorizontalAlignment="Left" Background="#E0E0E0" VerticalAlignment="Center" Text="{Binding Monto, ConverterCulture=es-GT,StringFormat=c}"/>
+
+                <Label Content="No Documento:" FontFamily="Roboto" FontSize="16" Grid.Row="2" Margin="5"/>
+                <TextBox Width="200" FontFamily="Roboto" FontSize="16" Grid.Column="1" Grid.Row="2" Height="28"
+                         HorizontalAlignment="Left" Background="#E0E0E0" VerticalAlignment="Center" Text="{Binding NoDoc}"/>
+
+                <Label Content="Tipo Gasto:" FontFamily="Roboto" FontSize="16" Grid.Row="3" Margin="5"/>
+                <ComboBox Width="200" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" Background="#E0E0E0" DisplayMemberPath="Nombre"
+                          Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Height="28" ItemsSource="{Binding TiposGastos}" SelectedItem="{Binding SelectedGasto}"/>
+
+                <Label Content="Tipo Pago:" FontFamily="Roboto" FontSize="16" Grid.Row="4" Margin="5"/>
+                <ComboBox Width="200" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" Background="#E0E0E0" DisplayMemberPath="Nombre"
+                          Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Height="28" ItemsSource="{Binding TiposPagos}" SelectedItem="{Binding SelectedPago}"/>
+
+                <Label Content="Descripcion:" FontFamily="Roboto" FontSize="16" Grid.Row="5" Margin="5"/>
+                <TextBox Width="200" FontFamily="Roboto" FontSize="16" Grid.Column="1" Grid.Row="5" Height="100" Text="{Binding Descripcion, UpdateSourceTrigger=PropertyChanged}"
+                         HorizontalAlignment="Left" Background="#E0E0E0" VerticalAlignment="Center" Margin="0 5 0 0"
+                         TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="5 5"/>
+
+            </Grid>
+
+
+        </Grid>
+    </Grid>
+</UserControl>
